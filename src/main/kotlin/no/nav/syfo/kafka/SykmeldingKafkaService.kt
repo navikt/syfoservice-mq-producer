@@ -1,5 +1,6 @@
 package no.nav.syfo.kafka
 
+import kotlinx.coroutines.delay
 import java.time.Duration
 import no.nav.syfo.Environment
 import no.nav.syfo.application.ApplicationState
@@ -25,6 +26,7 @@ class SykmeldingKafkaService(
                     sykmeldingKafkaMessage.helseopplysninger
                 )
             }
+            delay(1)
         }
     }
 }
