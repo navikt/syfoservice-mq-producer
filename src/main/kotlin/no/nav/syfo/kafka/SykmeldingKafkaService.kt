@@ -1,10 +1,11 @@
 package no.nav.syfo.kafka
 
-import kotlinx.coroutines.delay
 import java.time.Duration
+import kotlinx.coroutines.delay
 import no.nav.syfo.Environment
 import no.nav.syfo.application.ApplicationState
 import no.nav.syfo.kafka.model.SyfoserviceSykmeldingKafkaMessage
+import no.nav.syfo.log
 import no.nav.syfo.syfoservice.SyfoserviceMqProducer
 import org.apache.kafka.clients.consumer.KafkaConsumer
 
@@ -21,6 +22,7 @@ class SykmeldingKafkaService(
             val records = kafkaConsumer.poll(Duration.ofMillis(1000L))
             records.forEach {
                 val sykmeldingKafkaMessage = it.value()
+                log.info("lest sykmelding fra topic og publiserer til syfoservice-mq, sykmeldingId {}", sykmeldingKafkaMessage.metadata.sykmeldingId)
                 syfoserviceMqProducer.sendTilSyfoservice(
                     sykmeldingKafkaMessage.metadata.sykmeldingId,
                     sykmeldingKafkaMessage.helseopplysninger
