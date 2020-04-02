@@ -4,6 +4,7 @@ import java.time.Duration
 import kotlinx.coroutines.delay
 import no.nav.syfo.Environment
 import no.nav.syfo.application.ApplicationState
+import no.nav.syfo.application.metrics.SYKMELDING_MQ_PRODUCER_COUNTER
 import no.nav.syfo.kafka.model.SyfoserviceSykmeldingKafkaMessage
 import no.nav.syfo.log
 import no.nav.syfo.syfoservice.SyfoserviceMqProducer
@@ -27,6 +28,7 @@ class SykmeldingKafkaService(
                     sykmeldingKafkaMessage.metadata.sykmeldingId,
                     sykmeldingKafkaMessage.helseopplysninger
                 )
+                SYKMELDING_MQ_PRODUCER_COUNTER.labels(sykmeldingKafkaMessage.metadata.source).inc()
             }
             delay(1)
         }
