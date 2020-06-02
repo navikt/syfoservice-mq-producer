@@ -25,8 +25,8 @@ class SykmeldingKafkaService(
                 val sykmeldingKafkaMessage = it.value()
                 log.info("lest sykmelding fra topic og publiserer til syfoservice-mq, sykmeldingId {}", sykmeldingKafkaMessage.metadata.sykmeldingId)
                 syfoserviceMqProducer.sendTilSyfoservice(
-                    sykmeldingKafkaMessage.metadata.sykmeldingId,
-                    sykmeldingKafkaMessage.helseopplysninger
+                    sykmeldingKafkaMessage.helseopplysninger,
+                    sykmeldingKafkaMessage.tilleggsdata
                 )
                 SYKMELDING_MQ_PRODUCER_COUNTER.labels(sykmeldingKafkaMessage.metadata.source).inc()
             }
