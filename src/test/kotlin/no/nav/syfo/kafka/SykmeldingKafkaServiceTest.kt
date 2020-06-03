@@ -4,6 +4,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkClass
 import io.mockk.verify
+import java.time.LocalDateTime
 import java.util.Properties
 import kotlinx.coroutines.runBlocking
 import no.nav.syfo.Environment
@@ -12,6 +13,7 @@ import no.nav.syfo.kafka.model.KafkaMessageMetadata
 import no.nav.syfo.kafka.model.SyfoserviceSykmeldingKafkaMessage
 import no.nav.syfo.kafka.util.JacksonKafkaDeserializer
 import no.nav.syfo.syfoservice.SyfoserviceMqProducer
+import no.nav.syfo.syfoservice.Tilleggsdata
 import no.nav.syfo.syfoservice.getHelseOpplysningerArbeidsuforhet
 import no.nav.syfo.syfoservice.objectMapper
 import org.apache.kafka.clients.consumer.ConsumerConfig
@@ -66,7 +68,8 @@ class SykmeldingKafkaServiceTest : Spek({
                 KafkaMessageMetadata(
                     sykmeldingId = "123", source = "egenmeldt-sykmelding-backend"
                 ),
-                getHelseOpplysningerArbeidsuforhet()
+                getHelseOpplysningerArbeidsuforhet(),
+                Tilleggsdata("1", "123", "1", LocalDateTime.now())
             )
             kafkaProducer.send(ProducerRecord("topic", objectMapper.writeValueAsString(message)))
 

@@ -29,26 +29,21 @@ class SyfoserviceMqProducer(
     }
 
     fun sendTilSyfoservice(
-        sykmeldingId: String,
-        healthInformation: HelseOpplysningerArbeidsuforhet
+        healthInformation: HelseOpplysningerArbeidsuforhet,
+        tilleggsdata: Tilleggsdata
     ) {
-        messageProducer.send(session.createTextMessage().apply(createMessage(healthInformation, sykmeldingId)))
+        messageProducer.send(session.createTextMessage().apply(createMessage(healthInformation, tilleggsdata)))
     }
 
     private fun createMessage(
         healthInformation: HelseOpplysningerArbeidsuforhet,
-        sykmeldingId: String
+        tilleggsdata: Tilleggsdata
     ): TextMessage.() -> Unit {
         return {
             val syketilfelleStartDato = extractSyketilfelleStartDato(healthInformation)
             val sykmelding = convertSykemeldingToBase64(healthInformation, sykmeldingMarshaller)
             val syfo = Syfo(
-                tilleggsdata = Tilleggsdata(
-                    ediLoggId = sykmeldingId,
-                    sykmeldingId = sykmeldingId,
-                    msgId = sykmeldingId,
-                    syketilfelleStartDato = syketilfelleStartDato
-                ),
+                tilleggsdata = tilleggsdata,
                 sykmelding = Base64.getEncoder().encodeToString(sykmelding)
             )
             text = xmlObjectWriter.writeValueAsString(syfo)
