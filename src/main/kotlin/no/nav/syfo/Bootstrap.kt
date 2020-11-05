@@ -39,6 +39,7 @@ fun main() {
     val syfoserviceMqProducer = SyfoserviceMqProducer(session, syfoserviceProducer)
 
     val kafkaBaseConfig = loadBaseConfig(env, vaultSecrets).envOverrides()
+    kafkaBaseConfig["auto.offset.reset"] = "none"
     val consumerProperties = kafkaBaseConfig.toConsumerConfig(
         "${env.applicationName}-consumer",
         JacksonKafkaDeserializer::class
