@@ -55,8 +55,8 @@ fun main() {
     )
     val applicationServer = ApplicationServer(applicationEngine, applicationState)
     applicationServer.start()
-    applicationState.ready = true
 
+    applicationState.ready = true
     createListener(applicationState) {
         sykmelidngKafkaService.run()
     }
