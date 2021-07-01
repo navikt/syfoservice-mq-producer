@@ -1,6 +1,5 @@
 package no.nav.syfo.kafka
 
-import java.time.Duration
 import kotlinx.coroutines.delay
 import no.nav.syfo.Environment
 import no.nav.syfo.application.ApplicationState
@@ -9,6 +8,7 @@ import no.nav.syfo.kafka.model.SyfoserviceSykmeldingKafkaMessage
 import no.nav.syfo.log
 import no.nav.syfo.syfoservice.SyfoserviceMqProducer
 import org.apache.kafka.clients.consumer.KafkaConsumer
+import java.time.Duration
 
 class SykmeldingKafkaService(
     val syfoserviceMqProducer: SyfoserviceMqProducer,
