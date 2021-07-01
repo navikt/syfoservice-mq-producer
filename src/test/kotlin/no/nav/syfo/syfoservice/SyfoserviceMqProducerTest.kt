@@ -3,11 +3,11 @@ package no.nav.syfo.syfoservice
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import java.time.LocalDateTime
 import javax.jms.MessageProducer
 import javax.jms.Session
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
 
 class SyfoserviceMqProducerTest : Spek({
     val session = mockk<Session>()

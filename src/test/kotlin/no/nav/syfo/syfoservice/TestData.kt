@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import java.time.LocalDate
-import java.time.LocalDateTime
 import no.nav.helse.sm2013.Address
 import no.nav.helse.sm2013.ArsakType
 import no.nav.helse.sm2013.CS
@@ -15,6 +13,8 @@ import no.nav.helse.sm2013.HelseOpplysningerArbeidsuforhet
 import no.nav.helse.sm2013.Ident
 import no.nav.helse.sm2013.NavnType
 import no.nav.helse.sm2013.TeleCom
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 fun getHelseOpplysningerArbeidsuforhet(): HelseOpplysningerArbeidsuforhet {
     return HelseOpplysningerArbeidsuforhet().apply {
@@ -36,18 +36,22 @@ fun getHelseOpplysningerArbeidsuforhet(): HelseOpplysningerArbeidsuforhet {
                 fornavn = "Per"
                 etternavn = "Hansne"
             }
-            id.add(Ident().apply {
-                id = "12343567"
-                typeId = CV().apply {
-                    dn = "Fødselsnummer"
-                    s = "2.16.578.1.12.4.1.1.8116"
-                    v = "FNR"
+            id.add(
+                Ident().apply {
+                    id = "12343567"
+                    typeId = CV().apply {
+                        dn = "Fødselsnummer"
+                        s = "2.16.578.1.12.4.1.1.8116"
+                        v = "FNR"
+                    }
                 }
-            })
+            )
             adresse = Address().apply {
             }
-            kontaktInfo.add(TeleCom().apply {
-            })
+            kontaktInfo.add(
+                TeleCom().apply {
+                }
+            )
         }
         aktivitet = HelseOpplysningerArbeidsuforhet.Aktivitet().apply {
             periode.add(
@@ -56,10 +60,12 @@ fun getHelseOpplysningerArbeidsuforhet(): HelseOpplysningerArbeidsuforhet {
                     periodeTOMDato = LocalDate.now().plusDays(4)
                     aktivitetIkkeMulig = HelseOpplysningerArbeidsuforhet.Aktivitet.Periode.AktivitetIkkeMulig().apply {
                         medisinskeArsaker = ArsakType().apply {
-                            arsakskode.add(CS().apply {
-                                v = "1"
-                                dn = "Helsetilstanden hindrer pasienten i å være i aktivitet"
-                            })
+                            arsakskode.add(
+                                CS().apply {
+                                    v = "1"
+                                    dn = "Helsetilstanden hindrer pasienten i å være i aktivitet"
+                                }
+                            )
                             beskriv = "Kan ikkje jobbe"
                         }
                     }

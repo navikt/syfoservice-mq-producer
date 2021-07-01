@@ -1,7 +1,6 @@
 package no.nav.syfo
 
 import io.prometheus.client.hotspot.DefaultExports
-import javax.jms.Session
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -22,6 +21,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import javax.jms.Session
 
 val log: Logger = LoggerFactory.getLogger("no.nav.syfo.syfoservice-mq-producer")
 

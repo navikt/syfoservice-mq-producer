@@ -4,8 +4,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkClass
 import io.mockk.verify
-import java.time.LocalDateTime
-import java.util.Properties
 import kotlinx.coroutines.runBlocking
 import no.nav.syfo.Environment
 import no.nav.syfo.application.ApplicationState
@@ -26,9 +24,12 @@ import org.apache.kafka.common.serialization.StringSerializer
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import org.testcontainers.containers.KafkaContainer
+import org.testcontainers.utility.DockerImageName
+import java.time.LocalDateTime
+import java.util.Properties
 
 class SykmeldingKafkaServiceTest : Spek({
-    val kafka = KafkaContainer()
+    val kafka = KafkaContainer(DockerImageName.parse(KAFKA_IMAGE_NAME).withTag(KAFKA_IMAGE_VERSION))
     kafka.start()
     val env = mockkClass(Environment::class)
     every { env.applicationName } returns "application"

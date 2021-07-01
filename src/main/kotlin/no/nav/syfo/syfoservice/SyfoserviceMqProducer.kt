@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import no.nav.helse.sm2013.HelseOpplysningerArbeidsuforhet
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -13,7 +14,6 @@ import javax.jms.Session
 import javax.jms.TextMessage
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.Marshaller
-import no.nav.helse.sm2013.HelseOpplysningerArbeidsuforhet
 
 // Not threadsafe
 class SyfoserviceMqProducer(
