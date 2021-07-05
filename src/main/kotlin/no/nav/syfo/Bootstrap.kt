@@ -31,7 +31,7 @@ fun main() {
     DefaultExports.initialize()
     val applicationState = ApplicationState()
 
-    val connection = connectionFactory(env).createConnection(vaultSecrets.mqUsername, vaultSecrets.mqPassword)
+    val connection = connectionFactory(env).createConnection(vaultSecrets.serviceuserUsername, vaultSecrets.serviceuserPassword)
 
     connection.start()
     val session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)

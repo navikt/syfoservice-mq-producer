@@ -38,8 +38,6 @@ spec:
     paths:
       - kvPath: serviceuser/data/prod/srvsyfoservice-mq
         mountPath: /secrets/serviceuser
-      - kvPath: /kv/prod/fss/syfoservice-mq-producer/teamsykmelding
-        mountPath: /var/run/secrets/nais.io/vault
   ingresses:
     - "https://syfoservice-mq-producer.nais.adeo.no"
   webproxy: true
@@ -47,11 +45,11 @@ spec:
     - name: KAFKA_BOOTSTRAP_SERVERS_URL
       value: SASL_SSL://a01apvl00145.adeo.no:8443,SASL_SSL://a01apvl00146.adeo.no:8443,SASL_SSL://a01apvl00147.adeo.no:8443,SASL_SSL://a01apvl00149.adeo.no:8443
     - name: MQ_HOST_NAME
-      value: a01apvl062.adeo.no
+      value: a01apvl270.adeo.no
     - name: MQ_PORT
       value: '1414'
     - name: MQ_GATEWAY_NAME
-      value: MPLSC03
+      value: MPLS03
     - name: MQ_CHANNEL_NAME
       value: P_EGENMELDT
     - name: MQ_SYFOSERVICE_QUEUE_NAME
