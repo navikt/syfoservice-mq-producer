@@ -6,8 +6,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import no.nav.helse.sm2013.HelseOpplysningerArbeidsuforhet
 import java.io.ByteArrayOutputStream
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.util.Base64
 import javax.jms.MessageProducer
 import javax.jms.Session
@@ -40,7 +38,6 @@ class SyfoserviceMqProducer(
         tilleggsdata: Tilleggsdata
     ): TextMessage.() -> Unit {
         return {
-            val syketilfelleStartDato = extractSyketilfelleStartDato(healthInformation)
             val sykmelding = convertSykemeldingToBase64(healthInformation, sykmeldingMarshaller)
             val syfo = Syfo(
                 tilleggsdata = tilleggsdata,
@@ -58,7 +55,4 @@ class SyfoserviceMqProducer(
             sykmeldingMarshaller.marshal(helseOpplysningerArbeidsuforhet, it)
             it
         }.toByteArray()
-
-    private fun extractSyketilfelleStartDato(helseOpplysningerArbeidsuforhet: HelseOpplysningerArbeidsuforhet): LocalDateTime =
-        LocalDateTime.of(helseOpplysningerArbeidsuforhet.syketilfelleStartDato, LocalTime.NOON)
 }
