@@ -51,7 +51,7 @@ class SykmeldingKafkaServiceTest : Spek({
 
     val syfoserviceMqProducer = mockk<SyfoserviceMqProducer>(relaxed = true)
 
-    val sykmeldingKafkaService = SykmeldingKafkaService(syfoserviceMqProducer, kafkaConsumer, env, applicationState)
+    val sykmeldingKafkaService = SykmeldingKafkaService(syfoserviceMqProducer, kafkaConsumer, "topic", applicationState)
 
     every { syfoserviceMqProducer.sendTilSyfoservice(any(), any()) } answers {
         applicationState.ready = false

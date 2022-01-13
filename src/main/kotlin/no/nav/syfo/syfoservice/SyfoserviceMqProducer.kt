@@ -18,6 +18,7 @@ class SyfoserviceMqProducer(
     private val session: Session,
     private val messageProducer: MessageProducer
 ) {
+
     private val sykmeldingMarshaller: Marshaller = JAXBContext.newInstance(HelseOpplysningerArbeidsuforhet::class.java).createMarshaller()
         .apply { setProperty(Marshaller.JAXB_ENCODING, "UTF-8") }
     private val xmlObjectWriter: XmlMapper = XmlMapper().apply {
