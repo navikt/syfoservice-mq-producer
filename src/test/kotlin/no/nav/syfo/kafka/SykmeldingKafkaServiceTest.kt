@@ -33,7 +33,6 @@ class SykmeldingKafkaServiceTest : Spek({
     kafka.start()
     val env = mockkClass(Environment::class)
     every { env.applicationName } returns "application"
-    every { env.syfoserviceKafkaTopic } returns "topic"
 
     val kafkaConfig = Properties()
     kafkaConfig.let {

@@ -12,8 +12,6 @@ import no.nav.syfo.application.ApplicationState
 import no.nav.syfo.application.createApplicationEngine
 import no.nav.syfo.kafka.SykmeldingKafkaService
 import no.nav.syfo.kafka.aiven.KafkaUtils
-import no.nav.syfo.kafka.envOverrides
-import no.nav.syfo.kafka.loadBaseConfig
 import no.nav.syfo.kafka.model.SyfoserviceSykmeldingKafkaMessage
 import no.nav.syfo.kafka.toConsumerConfig
 import no.nav.syfo.kafka.util.JacksonKafkaDeserializer
@@ -37,17 +35,7 @@ fun main() {
     val applicationState = ApplicationState()
 
     val syfoserviceMqProducer = createSyfoservieProducer(env, vaultSecrets)
-    val syfoserviceMqProducerAiven = createSyfoservieProducer(env, vaultSecrets)
 
-    val kafkaBaseConfig = loadBaseConfig(env, vaultSecrets).envOverrides()
-    kafkaBaseConfig["auto.offset.reset"] = "none"
-    val consumerProperties = kafkaBaseConfig.toConsumerConfig(
-        "${env.applicationName}-consumer",
-        JacksonKafkaDeserializer::class
-    )
-    consumerProperties.let { it[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = "1" }
-
-    val kafkaConsumer = KafkaConsumer<String, SyfoserviceSykmeldingKafkaMessage>(consumerProperties)
     val kafkaConsumerAivenConfig = KafkaUtils.getAivenKafkaConfig().toConsumerConfig(
         "${env.applicationName}-consumer",
         JacksonKafkaDeserializer::class
@@ -57,8 +45,7 @@ fun main() {
     }
     val kafkaConsumerAiven = KafkaConsumer<String, SyfoserviceSykmeldingKafkaMessage>(kafkaConsumerAivenConfig)
 
-    val sykmelidngKafkaService = SykmeldingKafkaService(syfoserviceMqProducer, kafkaConsumer, env.syfoserviceKafkaTopic, applicationState)
-    val sykmeldingKafkaAivenService = SykmeldingKafkaService(syfoserviceMqProducerAiven, kafkaConsumerAiven, env.syfoserviceKafkaTopicAiven, applicationState, "aiven")
+    val sykmeldingKafkaAivenService = SykmeldingKafkaService(syfoserviceMqProducer, kafkaConsumerAiven, env.syfoserviceKafkaTopicAiven, applicationState, "aiven")
 
     val applicationEngine = createApplicationEngine(
         env,
@@ -68,9 +55,7 @@ fun main() {
     applicationServer.start()
 
     applicationState.ready = true
-    createListener(applicationState) {
-        sykmelidngKafkaService.run()
-    }
+
     createListener(applicationState) {
         sykmeldingKafkaAivenService.run()
     }
