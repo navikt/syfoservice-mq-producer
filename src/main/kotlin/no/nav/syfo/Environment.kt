@@ -19,7 +19,8 @@ data class Environment(
     override val kafkaBootstrapServers: String = getEnvVar("KAFKA_BOOTSTRAP_SERVERS_URL"),
     override val cluster: String = getEnvVar("NAIS_CLUSTER_NAME"),
     override val truststore: String? = getEnvVar("NAV_TRUSTSTORE_PATH"),
-    override val truststorePassword: String? = getEnvVar("NAV_TRUSTSTORE_PASSWORD")
+    override val truststorePassword: String? = getEnvVar("NAV_TRUSTSTORE_PASSWORD"),
+    val syfoserviceKafkaTopicAiven: String = "teamsykmelding.syfoservice-mq"
 ) : MqConfig, KafkaConfig
 
 data class VaultSecrets(
