@@ -40,7 +40,7 @@ fun main() {
         "${env.applicationName}-consumer",
         JacksonKafkaDeserializer::class
     ).also {
-        it["auto.offset.reset"] = "earliest"
+        it["auto.offset.reset"] = "none"
         it[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = "1"
     }
     val kafkaConsumerAiven = KafkaConsumer<String, SyfoserviceSykmeldingKafkaMessage>(kafkaConsumerAivenConfig)
